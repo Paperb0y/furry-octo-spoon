@@ -4,33 +4,30 @@ import fnmatch
 import shutil
 
 
-def movefile():
-    """move files to another destination."""
-    filelist = fnmatch.filter(os.listdir('a/'), '*.mkv')
-    print(filelist)
-    for file in filelist:
-        file = "a/" + file
-        shutil.move(file, 'b/')
-
-
-def movedir():
-    """move directories to antoher destination."""
-    dirlist = os.listdir('a/')
-    for dir in dirlist:
-        origin_path = 'a/%s' % dir
-        if len(fnmatch.filter(os.listdir(origin_path), '*.mkv')) > 2:
-            shutil.move(origin_path, 'c/')
-        else:
-            shutil.move(origin_path, 'b/')
-
-
 def main():
     """main code."""
-    if os.listdir('a/') == ():
+    origin = os.listdir('a/')
+    origin.sort()
+    if origin == ():
         print('nothing to do')
     else:
-        movefile()
-        movedir()
+        for entry in origin:
+            if os.path.isdir('a/' + entry + '/') is True:
+                print('got you')
+            else:
+                origin.remove(entry)
+        for directory in origin:
+            print(directory)
+            # fnmatch.filter gibt immer 0 zurück scheint nicht richtig zu sein
+            if len(fnmatch.filter('a/' + directory + '/', '.mkv')) > 1:
+                shutil.move(directory, 'c/')
+                print('moved')
+            elif len(fnmatch.filter(directory, '.mkv')) == 1:
+                shutil.move(directory, 'b/')
+                print('moved')
+            else:
+                print('didnt move, wrong condition')
+    print('fertig')
 
 
 # global PATH_A

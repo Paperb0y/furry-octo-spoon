@@ -8,10 +8,9 @@ def main():
         for entry in it:
             # print(entry)
             # print(entry.name)
-            if entry.path.isdir():
+            if entry.path.isdir() is True:
                 pathext = entry.path + '/'
                 print(pathext)
-# this is a test
             # if entry.name.endswith('.mkv'):
             #     dirlist.append(entry)
     # print(dirlist)
