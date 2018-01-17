@@ -11,7 +11,7 @@ def main():
             if entry.path.isdir():
                 pathext = entry.path + '/'
                 print(pathext)
-
+# this is a test
             # if entry.name.endswith('.mkv'):
             #     dirlist.append(entry)
     # print(dirlist)
