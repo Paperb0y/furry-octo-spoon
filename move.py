@@ -1,39 +1,35 @@
 """Import statements."""
 import os
-import fnmatch
 import shutil
 
 
 def main():
     """main code."""
-    origin = os.listdir('a/')
+    # directory paths
+    PATH_A = 'a/'
+    PATH_B = 'b/'
+    PATH_C = 'c/'
+    origin = os.listdir(PATH_A)
     origin.sort()
     if origin == ():
         print('nothing to do')
     else:
         for entry in origin:
-            if os.path.isdir('a/' + entry + '/') is True:
+            if os.path.isdir(PATH_A + entry + '/') is True:
                 print('got you')
             else:
                 origin.remove(entry)
         for directory in origin:
-            print(directory)
-            # fnmatch.filter gibt immer 0 zurück scheint nicht richtig zu sein
-            if len(fnmatch.filter('a/' + directory + '/', '.mkv')) > 1:
-                shutil.move(directory, 'c/')
-                print('moved')
-            elif len(fnmatch.filter(directory, '.mkv')) == 1:
-                shutil.move(directory, 'b/')
-                print('moved')
+            tempdir = os.listdir(PATH_A + directory + '/')
+            if len(tempdir) > 1:
+                shutil.move(PATH_A + directory + '/', PATH_C)
+                print('moved to c/')
+            elif len(tempdir) == 1:
+                shutil.move(PATH_A + directory + '/', PATH_B)
+                print('moved to b/')
             else:
                 print('didnt move, wrong condition')
-    print('fertig')
+    print('Finished!')
 
 
-# global PATH_A
-# global PATH_B
-# global PATH_C
-# PATH_A = "a/"
-# PATH_B = "b/"
-# PATH_C = "c/"
 main()
